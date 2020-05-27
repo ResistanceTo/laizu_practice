@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 import sys, math
 
+
 class table(QWidget):
     def __init__(self):
         super(table, self).__init__()

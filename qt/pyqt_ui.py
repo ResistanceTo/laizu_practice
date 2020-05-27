@@ -382,7 +382,7 @@ class MainUi(QtWidgets.QMainWindow):
 
         self.setWindowOpacity(0.9)  # 设置窗口透明度
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)  # 设置窗口背景透明
-        self.setWindowFlag(QtCore.Qt.FramelessWindowHint) # 隐藏边框
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)  # 隐藏边框
 
         self.main_layout.setSpacing(0)
 
@@ -391,20 +391,21 @@ class MainUi(QtWidgets.QMainWindow):
         self.left_mini.clicked.connect(self.showMinimized)
 
     def mousePressEvent(self, event):
-        if event.button()==Qt.LeftButton:
-            self.m_flag=True
-            self.m_Position=event.globalPos()-self.pos() #获取鼠标相对窗口的位置
+        if event.button() == Qt.LeftButton:
+            self.m_flag = True
+            self.m_Position = event.globalPos() - self.pos()  #获取鼠标相对窗口的位置
             event.accept()
             self.setCursor(QCursor(Qt.OpenHandCursor))  #更改鼠标图标
-            
+
     def mouseMoveEvent(self, QMouseEvent):
-        if Qt.LeftButton and self.m_flag:  
-            self.move(QMouseEvent.globalPos()-self.m_Position)#更改窗口位置
+        if Qt.LeftButton and self.m_flag:
+            self.move(QMouseEvent.globalPos() - self.m_Position)  #更改窗口位置
             QMouseEvent.accept()
-            
+
     def mouseReleaseEvent(self, QMouseEvent):
-        self.m_flag=False
+        self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

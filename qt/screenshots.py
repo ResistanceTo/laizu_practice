@@ -1,7 +1,6 @@
 # coding= utf-8
 
 
-
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -10,21 +9,11 @@ import sys
 
 
 def toRectF(rect):
-    return QRectF(
-        rect.x(),
-        rect.y(),
-        rect.width(),
-        rect.height()
-    )
+    return QRectF(rect.x(), rect.y(), rect.width(), rect.height())
 
 
 def toRect(rectF):
-    return QRect(
-        rectF.x(),
-        rectF.y(),
-        rectF.width(),
-        rectF.height()
-    )
+    return QRect(rectF.x(), rectF.y(), rectF.width(), rectF.height())
 
 
 def normalizeRect(rect):
@@ -45,11 +34,12 @@ class WScreenshot(QWidget):
     u"""
     截图
     """
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
 
         self.saveDir = u'/home/zhaohe/zhaohe/other/test_other/image'
-        self.saveName = u'W截图_{}'.format(QDateTime().currentDateTime().toString("yyyyMMdd_hh-mm-ss"))
+        self.saveName = u'W截图_{}'.format(
+            QDateTime().currentDateTime().toString("yyyyMMdd_hh-mm-ss"))
         self.saveFormat = 'JPG'
         self.picQuality = 100
 
@@ -57,7 +47,8 @@ class WScreenshot(QWidget):
         self.showFullScreen()  # 全屏显示
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
         # 屏幕 和 屏幕信息
-        self.screen = QApplication.primaryScreen().grabWindow(QApplication.desktop().winId())
+        self.screen = QApplication.primaryScreen().grabWindow(
+            QApplication.desktop().winId())
         self.screenSize = self.screen.rect().size()
         self.screenRect = toRectF(self.screen.rect())
         # -点
@@ -167,23 +158,24 @@ class WScreenshot(QWidget):
             wIsLonger = True if absW > absH else False
             if w > 0:
                 if h > 0:
-                    end = QPoint(x + absW, y + absW) if wIsLonger else QPoint(x + absH, y + absH)
+                    end = QPoint(x + absW, y + absW) if wIsLonger else QPoint(
+                        x + absH, y + absH)
                 else:
-                    end = QPoint(x + absW, y - absW) if wIsLonger else QPoint(x + absH, y - absH)
+                    end = QPoint(x + absW, y - absW) if wIsLonger else QPoint(
+                        x + absH, y - absH)
             else:
                 if h > 0:
-                    end = QPoint(x - absW, y + absW) if wIsLonger else QPoint(x - absH, y + absH)
+                    end = QPoint(x - absW, y + absW) if wIsLonger else QPoint(
+                        x - absH, y + absH)
                 else:
-                    end = QPoint(x - absW, y - absW) if wIsLonger else QPoint(x - absH, y - absH)
+                    end = QPoint(x - absW, y - absW) if wIsLonger else QPoint(
+                        x - absH, y - absH)
 
             rect = QRectF(self.start, end)
 
-        self.maskRect = QRectF(
-            rect.x() + min(rect.width(), 0),
-            rect.y() + min(rect.height(), 0),
-            abs(rect.width()),
-            abs(rect.height())
-        )
+        self.maskRect = QRectF(rect.x() + min(rect.width(), 0),
+                               rect.y() + min(rect.height(), 0),
+                               abs(rect.width()), abs(rect.height()))
 
         # 修正超出屏幕、碰撞
         if self.isShifting:
@@ -466,13 +458,21 @@ class WScreenshot(QWidget):
         self.maskRightMid = (self.maskTopRight + self.maskBottomRight) / 2
         # 除蒙版区外的 8 个区域
         self.rectTopLeft = QRectF(self.screenTopLeft, self.maskTopLeft)
-        self.rectBottomLeft = QRectF(self.screenBottomLeft, self.maskBottomLeft)
+        self.rectBottomLeft = QRectF(self.screenBottomLeft,
+                                     self.maskBottomLeft)
         self.rectTopRight = QRectF(self.screenTopRight, self.maskTopRight)
-        self.rectBottomRight = QRectF(self.screenBottomRight, self.maskBottomRight)
-        self.rectTop = QRectF(QPoint(self.maskRect.left(), self.screenTop), self.maskTopRight)
-        self.rectBottom = QRectF(self.maskBottomLeft, QPoint(self.maskRect.right(), self.screenBottom))
-        self.rectLeft = QRectF(QPoint(self.screenLeft, self.maskRect.top()), self.maskBottomLeft)
-        self.rectRight = QRectF(self.maskTopRight, QPoint(self.screenRight, self.maskRect.bottom()))
+        self.rectBottomRight = QRectF(self.screenBottomRight,
+                                      self.maskBottomRight)
+        self.rectTop = QRectF(QPoint(self.maskRect.left(), self.screenTop),
+                              self.maskTopRight)
+        self.rectBottom = QRectF(
+            self.maskBottomLeft,
+            QPoint(self.maskRect.right(), self.screenBottom))
+        self.rectLeft = QRectF(QPoint(self.screenLeft, self.maskRect.top()),
+                               self.maskBottomLeft)
+        self.rectRight = QRectF(
+            self.maskTopRight, QPoint(self.screenRight,
+                                      self.maskRect.bottom()))
 
     def paintEvent(self, QPaintEvent):
 
@@ -514,70 +514,59 @@ class WScreenshot(QWidget):
             lineWidth = self.adjustmentLineWidth
             painter.setBrush(self.blue)
             painter.drawRect(
-                QRectF(
-                    self.maskTopLeft + QPoint(-lineWidth, -lineWidth),
-                    self.maskTopRight + QPoint(lineWidth, 0))
-            )
+                QRectF(self.maskTopLeft + QPoint(-lineWidth, -lineWidth),
+                       self.maskTopRight + QPoint(lineWidth, 0)))
             painter.drawRect(
-                QRectF(
-                    self.maskBottomLeft + QPoint(-lineWidth, 0),
-                    self.maskBottomRight + QPoint(lineWidth, lineWidth)
-                )
-            )
+                QRectF(self.maskBottomLeft + QPoint(-lineWidth, 0),
+                       self.maskBottomRight + QPoint(lineWidth, lineWidth)))
             painter.drawRect(
-                QRectF(
-                    self.maskTopLeft + QPoint(-lineWidth, -lineWidth),
-                    self.maskBottomLeft + QPoint(0, lineWidth)
-                )
-            )
+                QRectF(self.maskTopLeft + QPoint(-lineWidth, -lineWidth),
+                       self.maskBottomLeft + QPoint(0, lineWidth)))
             painter.drawRect(
-                QRectF(
-                    self.maskTopRight + QPoint(0, -lineWidth),
-                    self.maskBottomRight + QPoint(lineWidth, lineWidth)
-                )
-            )
+                QRectF(self.maskTopRight + QPoint(0, -lineWidth),
+                       self.maskBottomRight + QPoint(lineWidth, lineWidth)))
             if self.maskRect.width() >= 150 and self.maskRect.height() >= 150:
                 # 绘制点
                 points = [
-                    self.maskTopLeft, self.maskTopRight, self.maskBottomLeft, self.maskBottomRight,
-                    self.maskLeftMid, self.maskRightMid, self.maskTopMid, self.maskBottomMid
+                    self.maskTopLeft, self.maskTopRight, self.maskBottomLeft,
+                    self.maskBottomRight, self.maskLeftMid, self.maskRightMid,
+                    self.maskTopMid, self.maskBottomMid
                 ]
                 # -白点
-                whiteDotRadiusPoint = QPoint(self.adjustmentWhiteDotRadius, self.adjustmentWhiteDotRadius)
+                whiteDotRadiusPoint = QPoint(self.adjustmentWhiteDotRadius,
+                                             self.adjustmentWhiteDotRadius)
                 painter.setBrush(Qt.white)
                 for point in points:
-                    painter.drawEllipse(QRectF(point - whiteDotRadiusPoint, point + whiteDotRadiusPoint))
+                    painter.drawEllipse(
+                        QRectF(point - whiteDotRadiusPoint,
+                               point + whiteDotRadiusPoint))
                 # -蓝点
-                blueDotRadius = QPoint(self.adjustmentBlueDotRadius, self.adjustmentBlueDotRadius)
+                blueDotRadius = QPoint(self.adjustmentBlueDotRadius,
+                                       self.adjustmentBlueDotRadius)
                 painter.setBrush(self.blue)
                 for point in points:
-                    painter.drawEllipse(QRectF(point - blueDotRadius, point + blueDotRadius))
+                    painter.drawEllipse(
+                        QRectF(point - blueDotRadius, point + blueDotRadius))
 
             # 绘制尺寸
-            maskSize = (abs(int(self.maskRect.width())), abs(int(self.maskRect.height())))
+            maskSize = (abs(int(self.maskRect.width())),
+                        abs(int(self.maskRect.height())))
             painter.setFont(QFont('Monaco', 7, QFont.Bold))
             painter.setPen(Qt.transparent)  # 透明获得字体Rect
             textRect = painter.drawText(
-                QRectF(self.maskTopLeft.x() + 10, self.maskTopLeft.y() - 25, 100, 20),
-                Qt.AlignLeft | Qt.AlignVCenter,
-                '{} x {}'.format(*maskSize)
-            )
+                QRectF(self.maskTopLeft.x() + 10,
+                       self.maskTopLeft.y() - 25, 100, 20),
+                Qt.AlignLeft | Qt.AlignVCenter, '{} x {}'.format(*maskSize))
             painter.setBrush(QColor(0, 0, 0, 128))  # 黑底
             padding = 5
             painter.drawRect(
-                QRectF(
-                    textRect.x() - padding,
-                    textRect.y() - padding * 0.4,
-                    textRect.width() + padding * 2,
-                    textRect.height() + padding * 0.4
-                )
-            )
+                QRectF(textRect.x() - padding,
+                       textRect.y() - padding * 0.4,
+                       textRect.width() + padding * 2,
+                       textRect.height() + padding * 0.4))
             painter.setPen(Qt.white)
-            painter.drawText(
-                textRect,
-                Qt.AlignLeft | Qt.AlignVCenter,
-                '{} x {}'.format(*maskSize)
-            )
+            painter.drawText(textRect, Qt.AlignLeft | Qt.AlignVCenter,
+                             '{} x {}'.format(*maskSize))
             painter.setPen(Qt.NoPen)
 
     def paintCanvas(self, painter):
@@ -586,7 +575,8 @@ class WScreenshot(QWidget):
     def keyPressEvent(self, QKeyEvent):
         if QKeyEvent.key() == Qt.Key_Escape:
             self.close()
-        if QKeyEvent.key() == Qt.Key_Return or QKeyEvent.key() == Qt.Key_Enter:  # 大键盘、小键盘回车
+        if QKeyEvent.key() == Qt.Key_Return or QKeyEvent.key(
+        ) == Qt.Key_Enter:  # 大键盘、小键盘回车
             if self.hasMask:
                 self.save()
             self.close()
@@ -606,13 +596,11 @@ class WScreenshot(QWidget):
 
         self.output.save(
             u'{saveDir}/{saveName}.{format}'.format(
-                saveDir = self.saveDir.rstrip('/'),
-                saveName = self.saveName,
-                format = self.saveFormat.lower()
-            ),
-            self.saveFormat,
-            self.picQuality
-        )
+                saveDir=self.saveDir.rstrip('/'),
+                saveName=self.saveName,
+                format=self.saveFormat.lower()), self.saveFormat,
+            self.picQuality)
+
 
 if __name__ == '__main__':
 
