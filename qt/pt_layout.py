@@ -251,45 +251,45 @@
 #     p.show()
 #     sys.exit(app.exec_())
 
-# '''
-# 实现表单设计
-# '''
-# from PyQt5.QtWidgets import *
-# from PyQt5.QtCore import Qt
-# import sys, math
+'''
+实现表单设计
+'''
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
+import sys, math
 
-# class table(QWidget):
-#     def __init__(self):
-#         super(table, self).__init__()
-#         self.setWindowTitle("栅格布局实现表单UI设计")
-#         #self.resize(400,300)
-#         grid = QGridLayout()
+class table(QWidget):
+    def __init__(self):
+        super(table, self).__init__()
+        self.setWindowTitle("栅格布局实现表单UI设计")
+        #self.resize(400,300)
+        grid = QGridLayout()
 
-#         label1 = QLabel("标题")
-#         label2 = QLabel("作者")
-#         label3 = QLabel("内容")
+        label1 = QLabel("标题")
+        label2 = QLabel("作者")
+        label3 = QLabel("内容")
 
-#         l1 = QLineEdit()
-#         l2 = QLineEdit()
-#         l3 = QTextEdit()
-#         grid.setSpacing(10)
+        l1 = QLineEdit()
+        l2 = QLineEdit()
+        l3 = QTextEdit()
+        grid.setSpacing(10)
 
-#         grid.addWidget(label1, 1, 0)
-#         grid.addWidget(l1, 1, 1)
+        grid.addWidget(label1, 1, 0)
+        grid.addWidget(l1, 1, 1)
 
-#         grid.addWidget(label2, 2, 0)
-#         grid.addWidget(l2, 2, 1)
+        grid.addWidget(label2, 2, 0)
+        grid.addWidget(l2, 2, 1)
 
-#         grid.addWidget(label3, 3, 0, 5, 1, Qt.AlignCenter)  #占据伸缩比为5行1列
-#         grid.addWidget(l3, 3, 1, 5, 1)  #占据比例为5行1列
+        grid.addWidget(label3, 3, 0, 5, 1, Qt.AlignCenter)  #占据伸缩比为5行1列
+        grid.addWidget(l3, 3, 1, 5, 1)  #占据比例为5行1列
 
-#         self.setLayout(grid)
+        self.setLayout(grid)
 
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)
-#     p = table()
-#     p.show()
-#     sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    p = table()
+    p.show()
+    sys.exit(app.exec_())
 
 # '''
 # 实现表单设计
@@ -324,49 +324,49 @@
 #     p.show()
 #     sys.exit(app.exec_())
 
-'''
-改变不同控件之间的边界
-'''
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
-import sys, math
+# '''
+# 改变不同控件之间的边界
+# '''
+# from PyQt5.QtWidgets import *
+# from PyQt5.QtCore import Qt
+# import sys, math
 
 
-class splitter(QWidget):
-    def __init__(self):
-        super(splitter, self).__init__()
-        self.setWindowTitle("拖动控件之间的边界")
-        self.setGeometry(300, 300, 300, 200)
+# class splitter(QWidget):
+#     def __init__(self):
+#         super(splitter, self).__init__()
+#         self.setWindowTitle("拖动控件之间的边界")
+#         self.setGeometry(300, 300, 300, 200)
 
-        topleft = QFrame()
-        topleft.setFrameShape(QFrame.StyledPanel)
+#         topleft = QFrame()
+#         topleft.setFrameShape(QFrame.StyledPanel)
 
-        bottom = QTextEdit("编辑器")
+#         bottom = QTextEdit("编辑器")
 
-        #设置所包含的控件之间可以水平拖动，基本设置为水平布局
-        splitter1 = QSplitter(Qt.Horizontal)
+#         #设置所包含的控件之间可以水平拖动，基本设置为水平布局
+#         splitter1 = QSplitter(Qt.Horizontal)
 
-        text = QTextEdit("代码区")
-        splitter1.addWidget(topleft)
-        splitter1.addWidget(text)
+#         text = QTextEdit("代码区")
+#         splitter1.addWidget(topleft)
+#         splitter1.addWidget(text)
 
-        #设置默认的控件之间的大小距离
-        splitter1.setSizes([100, 200])
+#         #设置默认的控件之间的大小距离
+#         splitter1.setSizes([100, 200])
 
-        #设置所包含的控件之间可以垂直拖动，设置我垂直布局
-        splitter2 = QSplitter(Qt.Vertical)
+#         #设置所包含的控件之间可以垂直拖动，设置我垂直布局
+#         splitter2 = QSplitter(Qt.Vertical)
 
-        text = QTextEdit()
-        splitter2.addWidget(splitter1)
-        splitter2.addWidget(bottom)
+#         text = QTextEdit()
+#         splitter2.addWidget(splitter1)
+#         splitter2.addWidget(bottom)
 
-        h = QVBoxLayout()
-        h.addWidget(splitter2)
-        self.setLayout(h)
+#         h = QVBoxLayout()
+#         h.addWidget(splitter2)
+#         self.setLayout(h)
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    p = splitter()
-    p.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     p = splitter()
+#     p.show()
+#     sys.exit(app.exec_())
