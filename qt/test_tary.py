@@ -1,6 +1,7 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMessageBox, QSystemTrayIcon, QMenu, qApp, QAction, QDesktopWidget, QWidget
 import sys
+import qtawesome
 
 
 class SystemTray:
@@ -38,15 +39,18 @@ class SystemTray:
             self.qw.show()
 
     def run(self):
-        self.a1 = QAction('显示', triggered=self.qw.show)
-        self.a2 = QAction('退出', triggered=self.quitApp)
-        self.logMenu = QMenu("日志")
-        self.a3 = QAction('启用', checkable=True)
-        self.a4 = QAction('禁用', checkable=True)
-        self.proxyMenu = QMenu("代理")
+        self.a1 = QAction('show', triggered=self.qw.show)
+        self.a2 = QAction('quit', triggered=self.quitApp)
+        self.logMenu = QMenu("log")
+        self.a3 = QAction('on', checkable=True)
+        self.a4 = QAction('off', checkable=True)
+        self.proxyMenu = QMenu("proxy")
         self.a5 = QAction('自动获取', checkable=True)
         self.a6 = QAction('手动获取', checkable=True)
         self.a7 = QAction('关闭获取', checkable=True)
+        self.a8 = QAction(qtawesome.icon('fa.comment', color='blue'),
+                          "question",
+                          checkable=True)
         self.logMenu.addAction(self.a3)
         self.logMenu.addAction(self.a4)
         self.proxyMenu.addAction(self.a5)
@@ -54,6 +58,7 @@ class SystemTray:
         self.proxyMenu.addAction(self.a7)
         self.tpMenu = QMenu()
         self.tpMenu.addAction(self.a1)
+        self.tpMenu.addAction(self.a8)
         self.tpMenu.addSeparator()
         self.tpMenu.addMenu(self.logMenu)
         self.tpMenu.addSeparator()
@@ -77,7 +82,7 @@ class Window(QWidget):
 
     def initUI(self):
         # 主窗口布局实现略。。。
-        self.setWindowTitle('Test')  # 设置标题
+        self.setWindowTitle('Main Window')  # 设置标题
         self.setWindowIcon(QIcon('./d.ico'))  # 设置标题图标
         self.resize(300, 250)  # 设置窗体大小
         self.setFixedSize(self.width(), self.height())  # 固定窗口大小
