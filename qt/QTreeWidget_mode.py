@@ -22,6 +22,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QBrush, QColor
 from PyQt5.QtCore import Qt
+import qtawesome
 
 
 class TreeWidgetDemo(QMainWindow):
@@ -38,7 +39,7 @@ class TreeWidgetDemo(QMainWindow):
         #设置根节点
         root = QTreeWidgetItem(self.tree)
         root.setText(0, 'Root')
-        root.setIcon(0, QIcon('./images/root.png'))
+        root.setIcon(0, QIcon(qtawesome.icon('ei.align-justify')))
 
         # todo 优化2 设置根节点的背景颜色
         brush_red = QBrush(Qt.red)
@@ -53,7 +54,7 @@ class TreeWidgetDemo(QMainWindow):
         child1 = QTreeWidgetItem()
         child1.setText(0, 'child1')
         child1.setText(1, 'ios')
-        child1.setIcon(0, QIcon('./images/IOS.png'))
+        child1.setIcon(0, QIcon(qtawesome.icon('mdi.apple-ios')))
 
         #todo 优化1 设置节点的状态
         child1.setCheckState(0, Qt.Checked)
@@ -64,13 +65,13 @@ class TreeWidgetDemo(QMainWindow):
         child2 = QTreeWidgetItem(root)
         child2.setText(0, 'child2')
         child2.setText(1, '')
-        child2.setIcon(0, QIcon('./images/android.png'))
+        child2.setIcon(0, QIcon(qtawesome.icon('mdi.cellphone-android')))
 
         #设置子节点3
         child3 = QTreeWidgetItem(child2)
         child3.setText(0, 'child3')
         child3.setText(1, 'android')
-        child3.setIcon(0, QIcon('./images/music.png'))
+        child3.setIcon(0, QIcon(qtawesome.icon('fa.android')))
 
         #加载根节点的所有属性与子控件
         self.tree.addTopLevelItem(root)
