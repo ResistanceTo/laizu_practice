@@ -31,7 +31,7 @@ def accept(server):
     xlist = []
 
     while True:
-        rs, ws, xs = select(rlist, wlist, xlist)
+        rs, _, _ = select(rlist, wlist, xlist)
 
         for r in rs:
             if r is server:
