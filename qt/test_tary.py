@@ -34,9 +34,17 @@ class SystemTray:
 
     def act(self, reason):
         # 主界面显示方法
-        # 鼠标点击icon传递的信号会带有一个整形的值，1是表示单击右键，2是双击，3是单击左键，4是用鼠标中键点击
-        if reason == 2 or reason == 3:
+
+        # if reason == 2:
+        #     self.qw.show()
+        #     print('reason == 2, 被右键单击')
+        if reason == 3:
             self.qw.show()
+            print('reason == 3, 被左/右键双击')
+        # elif reason == 1:
+        #     print('reason == 1, 被右键单击')
+        elif reason == 4:
+            print('reason == 4, 被中键单击')
 
     def run(self):
         self.a1 = QAction('show', triggered=self.qw.show)
