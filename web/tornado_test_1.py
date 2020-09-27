@@ -16,19 +16,36 @@ PROT = 1234
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        # self.write("Hello, world")
         message = {
-            "code": 200
+            "code": 200,
+            "text": "get"
         }
         self.finish(message)
     
-    # def post(self):
-    #     self.finish(message)
+    def post(self):
+        print(self.request)
+        # params
+        print(self.request.query_arguments)
+        # data
+        print(self.request.body_arguments)
+        message = {
+            "code": 200,
+            "text": "post"
+        }
+        self.finish(message)
 
 def make_app():
+    settings = {
+        # 给cookie添加一个秘钥
+        # Tornado 支持通过 set_secure_cookie 和 get_secure_cookie 方法对cookie签名
+        "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+        "login_url": "/login",
+        "xsrf_cookies": True
+    }
+
     return tornado.web.Application([
         (r"/", MainHandler),
-    ])
+    ], **settings)
 
 
 def main():

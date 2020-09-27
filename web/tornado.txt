@@ -12,16 +12,16 @@ print(self.request.files)
 print(self.request.cookies)
 print(self.request.arguments)
 属性	说明
-self.request.method	http的请求头;get, post等
-self.reuqest.uri	客户端请求完整的uri
-self.request.path	uri的路径名,不包含查询的字符串
-self.request.query	uri中的查询字符串
-self.request.version	http/1.1
-self.request.headers	请求头
-self.requset.body	字符串的消息
-self.request.remote_ip	客户端请求的ip
-self.request.protocol	http的协议http or https
-self.request.host	请求消息的主机名
-self.request.files	以字典的方式表达客户端上传的文件;
-self.request.cookies	客户端的cookies字典
-self.request.arguments	客户端提交的参数
+self.request.method	               http的请求头;get, post等
+self.reuqest.uri	               客户端请求完整的uri
+self.request.path	               uri的路径名,不包含查询的字符串
+self.request.query	               uri中的查询字符串
+self.request.version	           http/1.1
+self.request.headers	           请求头
+self.requset.body	               字符串的消息
+self.request.remote_ip	           客户端请求的ip
+self.request.protocol	           http的协议http or https
+self.request.host	               请求消息的主机名
+self.request.files	               以字典的方式表达客户端上传的文件;
+self.request.cookies	           客户端的cookies字典
+self.request.arguments	           客户端提交的参数
