@@ -20,7 +20,8 @@ class MainHandler(tornado.web.RequestHandler):
             "code": 200,
             "text": "get"
         }
-        self.finish(message)
+        print(self.request)
+        self.write(message)
     
     def post(self):
         print(self.request)
@@ -51,7 +52,7 @@ def make_app():
 def main():
     app = make_app()
     app.listen(PROT)
-    print('监听端口：{}   http://127.0.0.1:{}/'.format(PROT, PROT))
+    print('监听端口：{}  http://127.0.0.1:{}/'.format(PROT, PROT))
     tornado.ioloop.IOLoop.current().start()
 
 

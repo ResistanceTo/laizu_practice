@@ -4,7 +4,6 @@ import os
 import datetime
 
 BASE_PATH = os.path.dirname(os.path.dirname(__file__))
-print(BASE_PATH)
 
 LOGGER_ROOT_NAME = 'ServerLog'
 logger = logging.getLogger(LOGGER_ROOT_NAME)

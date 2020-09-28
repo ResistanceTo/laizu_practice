@@ -45,6 +45,9 @@ class SystemTray:
         #     print('reason == 1, 被右键单击')
         elif reason == 4:
             print('reason == 4, 被中键单击')
+        else:
+            print("reason == {}, ???".format(reason))
+            
 
     def run(self):
         self.a1 = QAction('show', triggered=self.qw.show)
